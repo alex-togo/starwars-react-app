@@ -3,7 +3,7 @@ import React from "react";
 const People = ({ people }) => {
   return (
     <>
-      {people.map((person, i) => {
+      {people.results.map((person, i) => {
         return (
           <ul key={i}>
             <li>{person.name}</li>
