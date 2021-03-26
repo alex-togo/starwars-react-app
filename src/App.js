@@ -1,10 +1,19 @@
 import "./App.css";
 import ListPage from "./pages/ListPage";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
+import CharacterPage from "./pages/CharacterPage";
 
 function App() {
   return (
     <div>
-      <ListPage />
+      <BrowserRouter>
+        <Switch>
+          <Route exact path="/">
+            <ListPage />
+          </Route>
+          <Route path="/character/:id" component={CharacterPage} />
+        </Switch>
+      </BrowserRouter>
     </div>
   );
 }

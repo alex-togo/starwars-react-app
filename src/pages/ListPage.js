@@ -1,19 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import People from "../components/People";
-
-const fetchPeople = async (url) => {
-  return fetch(url)
-    .then((res) => {
-      if (res.status > 400) {
-        throw new Error("Bad response from server");
-      }
-      return res;
-    })
-    .then((res) => {
-      return res.json();
-    });
-};
+import { fetchData } from "../helpers/fetchData";
 
 const ListPage = () => {
   const [people, setPeople] = useState(null);
@@ -21,7 +9,7 @@ const ListPage = () => {
 
   useEffect(() => {
     let isChanged = true;
-    fetchPeople(url).then((data) => {
+    fetchData(url).then((data) => {
       if (isChanged) {
         setPeople(data);
       }
@@ -37,7 +25,6 @@ const ListPage = () => {
         {people === null ? <p>Loading...</p> : <People people={people} />}
         <button
           onClick={() => {
-            console.log(people.previous);
             people.previous === null || setUrl(people.previous);
           }}
         >
@@ -45,7 +32,6 @@ const ListPage = () => {
         </button>
         <button
           onClick={() => {
-            console.log(people.next);
             people.next === null || setUrl(people.next);
           }}
         >
