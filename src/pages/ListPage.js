@@ -4,9 +4,10 @@ import People from "../components/People";
 import { fetchData } from "../helpers/fetchData";
 import { Link } from "react-router-dom";
 
-const ListPage = ({ match }) => {
+const ListPage = () => {
   const [people, setPeople] = useState(null);
   const [url, setUrl] = useState(`https://swapi.dev/api/people/`);
+  const [loading, setLoading] = useState(true);
 
   let pageRegex = /(?<=page=).*/;
 
@@ -15,6 +16,7 @@ const ListPage = ({ match }) => {
     fetchData(url).then((data) => {
       if (isChanged) {
         setPeople(data);
+        setLoading(false);
       }
     });
     return () => {
@@ -25,7 +27,7 @@ const ListPage = ({ match }) => {
   return (
     <>
       <div>
-        {people === null ? (
+        {loading ? (
           <p>Loading...</p>
         ) : (
           <div>
