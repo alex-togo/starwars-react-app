@@ -11,6 +11,7 @@ function App() {
           <Route exact path="/">
             <ListPage />
           </Route>
+          <Route path="/page/:id" component={ListPage} />
           <Route path="/character/:id" component={CharacterPage} />
         </Switch>
       </BrowserRouter>

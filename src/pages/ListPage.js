@@ -2,10 +2,13 @@ import React from "react";
 import { useState, useEffect } from "react";
 import People from "../components/People";
 import { fetchData } from "../helpers/fetchData";
+import { Link } from "react-router-dom";
 
-const ListPage = () => {
+const ListPage = ({ match }) => {
   const [people, setPeople] = useState(null);
   const [url, setUrl] = useState(`https://swapi.dev/api/people/`);
+
+  let pageRegex = /(?<=page=).*/;
 
   useEffect(() => {
     let isChanged = true;
@@ -22,21 +25,38 @@ const ListPage = () => {
   return (
     <>
       <div>
-        {people === null ? <p>Loading...</p> : <People people={people} />}
-        <button
-          onClick={() => {
-            people.previous === null || setUrl(people.previous);
-          }}
-        >
-          Previous Page
-        </button>
-        <button
-          onClick={() => {
-            people.next === null || setUrl(people.next);
-          }}
-        >
-          Next Page
-        </button>
+        {people === null ? (
+          <p>Loading...</p>
+        ) : (
+          <div>
+            <People people={people} />
+            {/* when pressing back button on char page, need to load that specific page */}
+            <Link
+              to={
+                people.previous === null
+                  ? `/`
+                  : `/page/${people.previous.match(pageRegex)}`
+              }
+            >
+              <button
+                onClick={() => {
+                  people.previous === null || setUrl(people.previous);
+                }}
+              >
+                Previous Page
+              </button>
+            </Link>
+            <Link to={people.next && `/page/${people.next.match(pageRegex)}`}>
+              <button
+                onClick={() => {
+                  people.next === null || setUrl(people.next);
+                }}
+              >
+                Next Page
+              </button>
+            </Link>
+          </div>
+        )}
       </div>
     </>
   );
