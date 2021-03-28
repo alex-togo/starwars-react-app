@@ -12,6 +12,8 @@ const ListPage = () => {
 
   let pageRegex = /(?<=page=).*/;
 
+  let today = new Date();
+
   useEffect(() => {
     let isChanged = true;
     setLoading(true);
@@ -37,7 +39,17 @@ const ListPage = () => {
       ) : (
         <div>
           <p>Welcome to the Star Wars Character List! (v1.0.0)</p>
-          <p>03/29/2021, 4:59:59 PM</p>
+          <p>
+            {today.getDate()}/{today.getMonth() + 1}/{today.getFullYear()},{" "}
+            {today.getHours() < 10 ? "0" + today.getHours() : today.getHours()}:
+            {today.getMinutes() < 10
+              ? "0" + today.getMinutes()
+              : today.getMinutes()}
+            :
+            {today.getSeconds() < 10
+              ? "0" + today.getSeconds()
+              : today.getSeconds()}
+          </p>
           <People people={people} />
           <Link
             to={
