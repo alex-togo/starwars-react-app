@@ -50,6 +50,7 @@ const ListPage = () => {
               ? "0" + today.getSeconds()
               : today.getSeconds()}
           </p>
+          <p>Page: {id.id > 1 ? id.id : 1}</p>
           <People people={people} />
           <Link
             to={

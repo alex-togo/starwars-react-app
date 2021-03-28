@@ -5,7 +5,9 @@ const Error = () => {
   return (
     <div>
       <h2>IT'S A TRAP! That page is unavailable!</h2>
-      <Link to="/">Back to homeworld</Link>
+      <Link to="/" className="navButton">
+        Back to homeworld
+      </Link>
     </div>
   );
 };
