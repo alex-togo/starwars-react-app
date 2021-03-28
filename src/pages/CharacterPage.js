@@ -27,7 +27,7 @@ const CharacterPage = ({ match }) => {
   }, [match]);
 
   return (
-    <div className="container">
+    <>
       {loading ? (
         <p>Loading...</p>
       ) : (
@@ -36,10 +36,10 @@ const CharacterPage = ({ match }) => {
             <h2 className="charName">{person.name}</h2>
           </div>
 
-          <div className="boxContainer">
+          <div>
             <h3>Info:</h3>
             <div className="infoBox">
-              <table style={{ width: "100%" }}>
+              <table style={{ tableLayout: "fixed", width: "100%" }}>
                 <tr>
                   <th>Height</th>
                   <th>Mass</th>
@@ -52,24 +52,28 @@ const CharacterPage = ({ match }) => {
                   <th>Homeworld</th>
                 </tr>
                 <tr>
-                  <td>{person.height}</td>
-                  <td>{person.mass}</td>
+                  <td>
+                    {person.height === "unknown"
+                      ? "unknown"
+                      : person.height + "cm"}
+                  </td>
+                  <td>
+                    {person.mass === "unknown" ? "unknown" : person.mass + "kg"}
+                  </td>
                   <td>{person.hair_color}</td>
                   <td>{person.skin_color}</td>
                   <td>{person.eye_color}</td>
                   <td>{person.birth_year}</td>
                   <td>{person.gender}</td>
-                  <td>
-                    {person.species.length === 0 ? (
-                      <td>No Species Listed</td>
-                    ) : (
-                      <ul>
-                        {person.species.map((species, i) => {
-                          return <td key={i}>{species.name}</td>;
-                        })}
-                      </ul>
-                    )}
-                  </td>
+                  {person.species.length === 0 ? (
+                    <td>unknown</td>
+                  ) : (
+                    <ul>
+                      {person.species.map((species, i) => {
+                        return <li key={i}>{species.name}</li>;
+                      })}
+                    </ul>
+                  )}
                   <td>{person.homeworld.name}</td>
                 </tr>
               </table>
@@ -78,7 +82,7 @@ const CharacterPage = ({ match }) => {
 
           <div className="boxContainer">
             <h3>Vehicles:</h3>
-            <div className="infoBox vehicles">
+            <div className="infoBox">
               <table>
                 <tr>
                   <th>Starships</th>
@@ -86,7 +90,7 @@ const CharacterPage = ({ match }) => {
                 </tr>
                 <tr>
                   {person.starships.length === 0 ? (
-                    <td>No Starships Listed</td>
+                    <td>unknown</td>
                   ) : (
                     <ul>
                       {person.starships.map((starship, i) => {
@@ -97,7 +101,7 @@ const CharacterPage = ({ match }) => {
                   <td>
                     {person.vehicles.length === 0 ? (
                       <ul>
-                        <li>No Vehicles Listed</li>
+                        <li>unknown</li>
                       </ul>
                     ) : (
                       <ul>
@@ -111,9 +115,9 @@ const CharacterPage = ({ match }) => {
               </table>
             </div>
 
-            <div className="boxContainer">
+            <div>
               <h3>Films:</h3>
-              <div className="infoBox ">
+              <div className="infoBox">
                 <table>
                   <tr>
                     <th>Film Name</th>
@@ -134,7 +138,7 @@ const CharacterPage = ({ match }) => {
       <button className="navButton backButton" onClick={() => history.goBack()}>
         Back
       </button>
-    </div>
+    </>
   );
 };
 

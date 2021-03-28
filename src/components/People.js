@@ -26,8 +26,12 @@ const People = ({ people }) => {
                 </Link>
               </td>
               <td>{person.birth_year}</td>
-              <td>{person.height}cm</td>
-              <td>{person.mass}kg</td>
+              <td>
+                {person.height === "unknown" ? "unknown" : person.height + "cm"}
+              </td>
+              <td>
+                {person.mass === "unknown" ? "unknown" : person.mass + "kg"}
+              </td>
             </tr>
           );
         })}
