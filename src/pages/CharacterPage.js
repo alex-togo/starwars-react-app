@@ -39,7 +39,7 @@ const CharacterPage = ({ match }) => {
           <div>
             <h3>Info:</h3>
             <div className="infoBox">
-              <table style={{ tableLayout: "fixed", width: "100%" }}>
+              <table style={{ width: "100%" }}>
                 <tr>
                   <th>Height</th>
                   <th>Mass</th>
