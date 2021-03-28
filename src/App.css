@@ -1,6 +1,41 @@
+body {
+  background-color: rgb(22, 22, 22);
+  color: rgb(0, 179, 0);
+}
+
 .container {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+.navButton {
+  border: none;
+  background-color: rgb(22, 22, 22);
+  color: white;
+  cursor: pointer;
+  text-align: center;
+  margin-left: 30px;
+}
+
+.charName {
+  text-align: center;
+}
+
+.nameLink {
+  text-decoration: underline;
+  color: rgb(0, 179, 0);
+}
+
+.nameLink:hover {
+  color: white;
+}
+
+.nameLink:visited {
+  color: yellow;
+}
+
+ul {
+  list-style-type: none;
 }

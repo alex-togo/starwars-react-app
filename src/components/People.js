@@ -11,7 +11,10 @@ const People = ({ people }) => {
         return (
           <ul key={i}>
             <li>
-              <Link to={`/character/${person.url.match(regex)}`}>
+              <Link
+                className="nameLink"
+                to={`/character/${person.url.match(regex)}`}
+              >
                 {person.name}
               </Link>
             </li>

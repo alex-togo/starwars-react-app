@@ -2,10 +2,11 @@ import "./App.css";
 import ListPage from "./pages/ListPage";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import CharacterPage from "./pages/CharacterPage";
+import Error from "./pages/Error";
 
 function App() {
   return (
-    <div>
+    <>
       <BrowserRouter>
         <Switch>
           <Route exact path="/">
@@ -13,9 +14,10 @@ function App() {
           </Route>
           <Route path="/page/:id" component={ListPage} />
           <Route path="/character/:id" component={CharacterPage} />
+          <Route component={Error} />
         </Switch>
       </BrowserRouter>
-    </div>
+    </>
   );
 }
 

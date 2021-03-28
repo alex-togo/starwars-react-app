@@ -1,35 +1,39 @@
-export const fetchData = async (url) => {
-  return fetch(url)
-    .then((res) => {
-      if (res.status > 400) {
-        throw new Error("Bad response from server");
-      }
-      return res;
-    })
-    .then((res) => {
-      return res.json();
-    });
+export const fetchPeople = async (url) => {
+  const res = await fetch(url);
+  if (res.status > 400) {
+    return {
+      count: "",
+      next: null,
+      previous: null,
+      results: [],
+    };
+  }
+  const resJson = await res.json();
+  return resJson;
 };
-
-// export const fetchCharacter = async (id) => {
-//   return fetch(`https://swapi.dev/api/people/${id}`)
-//     .then((res) => {
-//       if (res.status > 400) {
-//         throw new Error("Bad response from server");
-//       }
-//       return res;
-//     })
-//     .then((res) => {
-//       return res.json();
-//     });
-// };
 
 export const fetchAllCharacterData = async (id) => {
   const res = await fetch(`https://swapi.dev/api/people/${id}`);
   if (res.status > 400) {
-    throw new Error("Bad response from server");
+    return {
+      name: "Character not found",
+      height: "",
+      mass: "",
+      hair_color: "",
+      skin_color: "",
+      eye_color: "",
+      birth_year: "",
+      gender: "",
+      homeworld: "",
+      films: [],
+      species: [],
+      vehicles: [],
+      starships: [],
+    };
+    //throw new Error("Bad response from server");
   }
   const resJson = await res.json();
+
   //homeworld
   const charHomeworld = await fetch(resJson.homeworld)
     .then((data) => {
@@ -38,6 +42,7 @@ export const fetchAllCharacterData = async (id) => {
     .then((world) => {
       return world;
     });
+
   //films
   const charFilms = resJson.films.map(async (url) => {
     return fetch(url)
@@ -49,6 +54,7 @@ export const fetchAllCharacterData = async (id) => {
       });
   });
 
+  //species
   const charSpecies = resJson.species.map(async (url) => {
     return fetch(url)
       .then((data) => {

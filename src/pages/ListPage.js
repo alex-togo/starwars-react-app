@@ -1,11 +1,12 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import People from "../components/People";
-import { fetchData } from "../helpers/fetchData";
-import { Link } from "react-router-dom";
+import { fetchPeople } from "../helpers/fetchData";
+import { Link, useParams } from "react-router-dom";
 
 const ListPage = () => {
   const [people, setPeople] = useState(null);
+  let id = useParams();
   const [url, setUrl] = useState(`https://swapi.dev/api/people/`);
   const [loading, setLoading] = useState(true);
 
@@ -13,7 +14,11 @@ const ListPage = () => {
 
   useEffect(() => {
     let isChanged = true;
-    fetchData(url).then((data) => {
+    if (id.id > 1) {
+      setUrl(`https://swapi.dev/api/people/?page=${id.id}`);
+    }
+
+    fetchPeople(url).then((data) => {
       if (isChanged) {
         setPeople(data);
         setLoading(false);
@@ -22,45 +27,48 @@ const ListPage = () => {
     return () => {
       isChanged = false;
     };
-  }, [url]);
+  }, [url, id]);
 
   return (
-    <>
-      <div>
-        {loading ? (
-          <p>Loading...</p>
-        ) : (
-          <div>
-            <People people={people} />
-            {/* when pressing back button on char page, need to load that specific page */}
-            <Link
-              to={
+    <div className="container">
+      {loading ? (
+        <p>Loading...</p>
+      ) : (
+        <div>
+          <h2>Star Wars Character List</h2>
+          <People people={people} />
+          {/* when pressing back button on char page, need to load that specific page */}
+          <Link
+            to={
+              people.previous === null || people.previous.match(pageRegex) <= 1
+                ? `/`
+                : `/page/${people.previous.match(pageRegex)}`
+            }
+          >
+            <button
+              className="navButton"
+              onClick={(e) => {
                 people.previous === null
-                  ? `/`
-                  : `/page/${people.previous.match(pageRegex)}`
-              }
+                  ? e.preventDefault()
+                  : setUrl(people.previous);
+              }}
             >
-              <button
-                onClick={() => {
-                  people.previous === null || setUrl(people.previous);
-                }}
-              >
-                Previous Page
-              </button>
-            </Link>
-            <Link to={people.next && `/page/${people.next.match(pageRegex)}`}>
-              <button
-                onClick={() => {
-                  people.next === null || setUrl(people.next);
-                }}
-              >
-                Next Page
-              </button>
-            </Link>
-          </div>
-        )}
-      </div>
-    </>
+              Previous Page
+            </button>
+          </Link>
+          <Link to={people.next && `/page/${people.next.match(pageRegex)}`}>
+            <button
+              className="navButton"
+              onClick={(e) => {
+                people.next === null ? e.preventDefault() : setUrl(people.next);
+              }}
+            >
+              Next Page
+            </button>
+          </Link>
+        </div>
+      )}
+    </div>
   );
 };
 
