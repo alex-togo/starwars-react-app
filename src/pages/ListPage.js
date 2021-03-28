@@ -14,6 +14,7 @@ const ListPage = () => {
 
   useEffect(() => {
     let isChanged = true;
+    setLoading(true);
     if (id.id > 1) {
       setUrl(`https://swapi.dev/api/people/?page=${id.id}`);
     }
