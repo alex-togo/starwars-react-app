@@ -7,25 +7,31 @@ const People = ({ people }) => {
 
   return (
     <>
-      {people.results.map((person, i) => {
-        return (
-          <ul key={i}>
-            <li>
-              <Link
-                className="nameLink"
-                to={`/character/${person.url.match(regex)}`}
-              >
-                {person.name}
-              </Link>
-            </li>
-            <ul>
-              <li>Birth Year: {person.birth_year}</li>
-              <li>Height: {person.height}</li>
-              <li>Mass: {person.mass}</li>
-            </ul>
-          </ul>
-        );
-      })}
+      <table style={{ width: "50%" }}>
+        <tr>
+          <th>Name</th>
+          <th>Birth Year</th>
+          <th>Height</th>
+          <th>Mass</th>
+        </tr>
+        {people.results.map((person, i) => {
+          return (
+            <tr>
+              <td>
+                <Link
+                  className="nameLink"
+                  to={`/character/${person.url.match(regex)}`}
+                >
+                  {person.name}
+                </Link>
+              </td>
+              <td>{person.birth_year}</td>
+              <td>{person.height}cm</td>
+              <td>{person.mass}kg</td>
+            </tr>
+          );
+        })}
+      </table>
     </>
   );
 };

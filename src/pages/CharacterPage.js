@@ -32,85 +32,103 @@ const CharacterPage = ({ match }) => {
         <p>Loading...</p>
       ) : (
         <div>
-          <h2 className="charName">{person.name}</h2>
-          <ul>
-            <li>
-              <b>Height: </b>
-              {person.height}
-            </li>
-            <li>
-              <b>Mass: </b>
-              {person.mass}
-            </li>
-            <li>
-              <b>Hair Color: </b> {person.hair_color}
-            </li>
-            <li>
-              <b>Skin Color: </b> {person.skin_color}
-            </li>
-            <li>
-              <b>Eye Color: </b> {person.eye_color}
-            </li>
-            <li>
-              <b>Birth Year: </b> {person.birth_year}
-            </li>
-            <li>
-              <b>Gender: </b> {person.gender}
-            </li>
-            <li>
-              <b>Homeworld: </b> {person.homeworld.name}
-            </li>
-            <li>
-              <b>Films: </b>
-            </li>
-            <ul>
-              {person.films.map((film, i) => {
-                return <li key={i}>{film.title}</li>;
-              })}
-            </ul>
-            <li>
-              <b>Species: </b>
-            </li>
-            {person.species.length === 0 ? (
-              <ul>
-                <li>No Species Listed</li>
-              </ul>
-            ) : (
-              <ul>
-                {person.species.map((species, i) => {
-                  return <li key={i}>{species.name}</li>;
-                })}
-              </ul>
-            )}
-            <li>
-              <b>Vehicles: </b>
-            </li>
-            {person.vehicles.length === 0 ? (
-              <ul>
-                <li>No Vehicles Listed</li>
-              </ul>
-            ) : (
-              <ul>
-                {person.vehicles.map((vehicle, i) => {
-                  return <li key={i}>{vehicle.name}</li>;
-                })}
-              </ul>
-            )}
-            <li>
-              <b>Starships: </b>
-            </li>
-            {person.starships.length === 0 ? (
-              <ul>
-                <li>No Starships Listed</li>
-              </ul>
-            ) : (
-              <ul>
-                {person.starships.map((starship, i) => {
-                  return <li key={i}>{starship.name}</li>;
-                })}
-              </ul>
-            )}
-          </ul>
+          <div className="infoBox nameHeader">
+            <h2 className="charName">{person.name}</h2>
+          </div>
+
+          <div className="boxContainer">
+            <h3>Info:</h3>
+            <div className="infoBox">
+              <table style={{ width: "100%" }}>
+                <tr>
+                  <th>Height</th>
+                  <th>Mass</th>
+                  <th>Hair Color:</th>
+                  <th>Skin Color</th>
+                  <th>Eye Color</th>
+                  <th>Birth Year</th>
+                  <th>Gender</th>
+                  <th>Species</th>
+                  <th>Homeworld</th>
+                </tr>
+                <tr>
+                  <td>{person.height}</td>
+                  <td>{person.mass}</td>
+                  <td>{person.hair_color}</td>
+                  <td>{person.skin_color}</td>
+                  <td>{person.eye_color}</td>
+                  <td>{person.birth_year}</td>
+                  <td>{person.gender}</td>
+                  <td>
+                    {person.species.length === 0 ? (
+                      <td>No Species Listed</td>
+                    ) : (
+                      <ul>
+                        {person.species.map((species, i) => {
+                          return <td key={i}>{species.name}</td>;
+                        })}
+                      </ul>
+                    )}
+                  </td>
+                  <td>{person.homeworld.name}</td>
+                </tr>
+              </table>
+            </div>
+          </div>
+
+          <div className="boxContainer">
+            <h3>Vehicles:</h3>
+            <div className="infoBox vehicles">
+              <table>
+                <tr>
+                  <th>Starships</th>
+                  <th>Other Vehicles</th>
+                </tr>
+                <tr>
+                  {person.starships.length === 0 ? (
+                    <td>No Starships Listed</td>
+                  ) : (
+                    <ul>
+                      {person.starships.map((starship, i) => {
+                        return <li key={i}>{starship.name}</li>;
+                      })}
+                    </ul>
+                  )}
+                  <td>
+                    {person.vehicles.length === 0 ? (
+                      <ul>
+                        <li>No Vehicles Listed</li>
+                      </ul>
+                    ) : (
+                      <ul>
+                        {person.vehicles.map((vehicle, i) => {
+                          return <li key={i}>{vehicle.name}</li>;
+                        })}
+                      </ul>
+                    )}
+                  </td>
+                </tr>
+              </table>
+            </div>
+
+            <div className="boxContainer">
+              <h3>Films:</h3>
+              <div className="infoBox ">
+                <table>
+                  <tr>
+                    <th>Film Name</th>
+                  </tr>
+                  <tr>
+                    <ul>
+                      {person.films.map((film, i) => {
+                        return <li key={i}>{film.title}</li>;
+                      })}
+                    </ul>
+                  </tr>
+                </table>
+              </div>
+            </div>
+          </div>
         </div>
       )}
       <button className="navButton backButton" onClick={() => history.goBack()}>

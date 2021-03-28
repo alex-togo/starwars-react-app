@@ -35,9 +35,9 @@ const ListPage = () => {
         <p>Loading...</p>
       ) : (
         <div>
-          <h2>Star Wars Character List</h2>
+          <p>Welcome to the Star Wars Character List! (v1.0.0)</p>
+          <p>03/29/2021, 4:59:59 PM</p>
           <People people={people} />
-          {/* when pressing back button on char page, need to load that specific page */}
           <Link
             to={
               people.previous === null || people.previous.match(pageRegex) <= 1
