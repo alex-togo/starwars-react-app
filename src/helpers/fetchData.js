@@ -35,7 +35,7 @@ export const fetchAllCharacterData = async (id) => {
   const resJson = await res.json();
 
   //homeworld
-  const charHomeworld = await fetch(resJson.homeworld)
+  const charHomeworld = await fetch(resJson.homeworld.replace("http", "https"))
     .then((data) => {
       return data.json();
     })
@@ -45,7 +45,7 @@ export const fetchAllCharacterData = async (id) => {
 
   //films
   const charFilms = resJson.films.map(async (url) => {
-    return fetch(url)
+    return fetch(url.replace("http", "https"))
       .then((data) => {
         return data.json();
       })
@@ -56,7 +56,7 @@ export const fetchAllCharacterData = async (id) => {
 
   //species
   const charSpecies = resJson.species.map(async (url) => {
-    return fetch(url)
+    return fetch(url.replace("http", "https"))
       .then((data) => {
         return data.json();
       })
@@ -67,7 +67,7 @@ export const fetchAllCharacterData = async (id) => {
 
   //vehicles
   const charVehicles = resJson.vehicles.map(async (url) => {
-    return fetch(url)
+    return fetch(url.replace("http", "https"))
       .then((data) => {
         return data.json();
       })
@@ -78,7 +78,7 @@ export const fetchAllCharacterData = async (id) => {
 
   //starships
   const charStarships = resJson.starships.map(async (url) => {
-    return fetch(url)
+    return fetch(url.replace("http", "https"))
       .then((data) => {
         return data.json();
       })
